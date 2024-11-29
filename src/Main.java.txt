@@ -1,0 +1,27 @@
+import java.util.Calendar;
+
+public class Main {
+    public static void main(String[] args) {
+        Calendar date = Calendar.getInstance();
+        BankAccount account = new BankAccount(1000);
+
+        // Testing Deposit Transaction
+        DepositTransaction deposit = new DepositTransaction(500, date, "D001");
+        deposit.apply(account);
+        deposit.printTransactionDetails();
+
+        // Testing Withdrawal Transaction
+        WithdrawalTransaction withdrawal = new WithdrawalTransaction(2000, date, "W001");
+        try {
+            withdrawal.apply(account);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        // Reversing the withdrawal
+        System.out.println("Reversing withdrawal...");
+        withdrawal.reverse(account);
+
+        System.out.println("Final Balance: " + account.getBalance());
+    }
+}
